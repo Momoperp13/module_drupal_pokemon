@@ -19,36 +19,53 @@ class PokemonController extends ControllerBase{
      */
     public function pokemon_list($page = 1){
       $pokemons_by_type = [];
-      if(!(empty($_COOKIE['pokemons_by_type']))){
-        $pokemons_by_type = $_COOKIE['pokemons_by_type_searched'];
-      }
+      
       //verification de l'id
-      /*$idver = (int)($id);
-      if($idver <1 || $idver > 97)
-          return 'entrer la valeur exacte de la page';*/
+      $idver = (int)($page);
+      if($idver <1 || $idver > 97){
+          return [
+            '#markup'=> $this->t('Veuillez entrer un chiffre entre 1 et 97 svp ')
+          ];
+        }
       $pokemon_model = new PokemonModel();   
-      //$pokemons_name = $pokemon_model->get_pokemon_list_by_name();
       $pokemons_type = $pokemon_model->get_type();
       if(isset($_POST['recherPokemon'])){
         $type_id = $_POST['typePokemon'];
-        $name_id = $post['nomPokemon'];
-        if ($type_id == NULL){
-          $pok = $pokemon_model->get_pokemon_list_by_name();
-          
-        }
-        else{
-          $pok = $pokemon_model->get_pokemon_list_by_type($type_id+1);
-          
-        }
+        $name_id = $_POST['nomPokemon'];
+        setcookie('type_id', $type_id, time()+1800);
+        setcookie('name_id', $name_id,  time()+1800);
+
+      }else{
+        $type_id = $_COOKIE['type_id'];
+         $name_id = $_COOKIE['name_id'];
+      }
+      if ($type_id == '' && $name_id != ''){
+        $pok = $pokemon_model->get_pokemon_list_by_name();
         foreach($pok as $p){
-          if(strpos($p['name'], $name_id)){
-            $pokemons_by_type[] = $p;
+          $pos = strpos($p['name'], $name_id);
+          if($pos !== false){
+            $pokemons_by_type[] = array($key=>$p);
           }
         }  
-        setcookie("pokemons_by_type_searched", $pokemons_by_type);
+      }
+      elseif($type_id !=''  && $name_id == ''){
+        $pokemons_by_type = $pokemon_model->get_pokemon_list_by_type($type_id+1);
+        
+      }
+      
+      elseif($type_id != '' && $name_id != ''){
+        $pok = $pokemon_model->get_pokemon_list_by_type($type_id+1);
+        foreach($pok as $p){
+          foreach($p as $pp){
+            $pos2 = strpos($pp['name'], $name_id);
+            if($pos2 !== false){
+              $pokemons_by_type[] = $p;
+            }
+         }
+        }  
       }
       $nbr_pokemon = count($pokemons_by_type);
-        for($i =1; $i<=$nbr_pokemon; $i++)
+        for($i = 1; $i<=$nbr_pokemon; $i++)
           $pages[] = $i;
         
         //pagination
@@ -56,16 +73,17 @@ class PokemonController extends ControllerBase{
             $j = ((String)($k).'0');
             $debut = (int)($j);
         $pokemons_by_type_by_page = array_slice($pokemons_by_type, $debut, 10);
-      //$pokemons_name_by_page = $pokemon_model->get_pokemon_list_by_name_by_page($id);
       $output = array();
       $output= [
           '#pokemons_type'=> $pokemons_type, 
           '#pokemons_by_type_by_page' => $pokemons_by_type_by_page,
           '#theme' => 'pokemon_list', 
           '#pages'=> $pages,
+          
       ];
       return  $output;
       }
+
       /**
        * page caractéristique d'un pokemon
        */

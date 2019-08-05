@@ -22,17 +22,22 @@
        <hr>
  </form>
  <table>
+     <tr>
+         <th>Pokemon name</th><th></th>
+     </tr>
      {% for pokemon_by_type in pokemons_by_type_by_page %}
      <tr>
          {% for pokemon_by_name in pokemon_by_type %}
         
-            <td><a href="/poke-monster-poche//pokemon-list/pokemon-show/{{pokemon_by_name.name}}">{{pokemon_by_name.name}}</a></td>
+            <td><a href="pokemon-list/pokemon-show/{{pokemon_by_name.name}}">{{pokemon_by_name.name}}</a></td>
             
         {% endfor %}
     </tr>
     {% endfor %}
  </table>
+ pages:
  {% for i in pages %}
-    <a href="/poke-monster-poche/pokemon-list/{{i}}">{{i}}</a>
+    <a href="pokemon-list/{{i}}">{{i}}</a>
 {% endfor %}
- 
+
+

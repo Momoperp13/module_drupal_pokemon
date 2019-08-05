@@ -10,7 +10,6 @@ class PokemonModel{
     private $pokemon_list_type;
     private $url_pokemons;
     private $url_type;
-    private $pokemon_by_page;
 
     public function __construct(){
         $this->url_pokemons = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=964";
@@ -65,13 +64,7 @@ class PokemonModel{
         $value = array_values($type);
         return $value[8];
     }
-    public function get_pokemon_list_by_name_by_page($id){
-            $k = (int)$id-1;
-            $j = ((String)($k).'0');
-            $debut = (int)($j);
-            $this->$pokemon_by_page = array_slice($this->pokemon_list_name, $debut, 10);
-        return $this->pokemon_by_page;
-    }
+    
     public function get_character_pokemon($key){
         $character = $this->connect_poke_api("https://pokeapi.co/api/v2/pokemon/$key");
         return $character;

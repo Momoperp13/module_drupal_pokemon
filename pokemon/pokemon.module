@@ -10,6 +10,8 @@ function pokemon_theme() {
         'pokemons_type' => [],
         'pokemons_by_type_by_page'=>[],
         'pages' =>[],
+        
+        
       ],   
       'template' => 'pokemon-list',
     ],
