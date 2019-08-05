@@ -1,0 +1,24 @@
+<?php
+/**
+ * Implements hook_theme().
+ */
+function pokemon_theme() {    
+  return [
+    // List resources.
+    'pokemon_list' => [
+      'variables' => [ 
+        'pokemons_type' => [],
+        'pokemons_by_type_by_page'=>[],
+        'pages' =>[],
+      ],   
+      'template' => 'pokemon-list',
+    ],
+    'pokemon_show' => [
+      'variables' => [ 
+        'caracteristique' => [], 
+        'key' => '',  
+      ],   
+      'template' => 'pokemon-show',
+    ],
+  ];
+}
