@@ -1,0 +1,38 @@
+<form    action = ""  method="post">
+    <table>
+    <tr>
+        <td>
+            <label for="nomPokemon">Nom:</label>
+            <input  type="text"  name="nomPokemon">
+        </td>
+        <td>
+            <label for="typePokemon">Type:</label> 
+            <select  name="typePokemon">
+                    <option value = ""></option>
+                {% for key, pokemon_type in pokemons_type %}
+                    <option value = "{{key}}">{{pokemon_type.name}}</option>
+                {% endfor %}
+            </select>
+        </td>
+        <td>
+            <button type="submit" name="recherPokemon" >Recherche</button>           
+      </td>
+  </tr>
+     </table>
+       <hr>
+ </form>
+ <table>
+     {% for pokemon_by_type in pokemons_by_type_by_page %}
+     <tr>
+         {% for pokemon_by_name in pokemon_by_type %}
+        
+            <td><a href="/poke-monster-poche//pokemon-list/pokemon-show/{{pokemon_by_name.name}}">{{pokemon_by_name.name}}</a></td>
+            
+        {% endfor %}
+    </tr>
+    {% endfor %}
+ </table>
+ {% for i in pages %}
+    <a href="/poke-monster-poche/pokemon-list/{{i}}">{{i}}</a>
+{% endfor %}
+ 

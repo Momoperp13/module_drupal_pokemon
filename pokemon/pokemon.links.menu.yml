@@ -1,0 +1,5 @@
+pokemon.list:
+  title: Pokemon
+  description: 'Home Pokemon list.'
+  route_name: pokemon.list
+
