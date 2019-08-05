@@ -1,0 +1,6 @@
+name: PokemonApi
+type: module
+description: "Afficher les monstres de poche pokemon"
+package: module test
+core: '8.x'
+
