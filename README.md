@@ -1,4 +1,6 @@
 # module_drupal_pokemon
-# upload data from api-rest
-# display list of pokemon by type and name
-# display pokemon character 
+# pokemon developpé avec drupal 8
+# symfony blog_platform developpé avec symfony 4.2
+# projet-angular-appareil-electrique developpé avec Angular
+# Village developpé avec Laravel
+# 
